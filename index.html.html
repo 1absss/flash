@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcard App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .options button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .nav {
+      margin-top: 20px;
+    }
+    .score {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="score" id="score">Score: 0 / 0</div>
+    <h2 id="question">Loading...</h2>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="nav">
+      <button onclick="prevQuestion()">Previous</button>
+      <button onclick="nextQuestion()">Next</button>
+      <button onclick="shuffleQuestions()">🔀 Shuffle</button>
+    </div>
+  </div>
+
+  <script>
+    let questions = [{"question": "\"\nAn swe r D (Nap roxe n ) is  als o an  NSAID in dicate d for mild to mode rate  p ain  it  is  als o\nin cor rec t for the same reason s as above.\n\"\nAn swe r B (code in e ) is  a we ak op ioid an d t h e re fore  u n like ly to be  s u fficie n t  p ain  re lie f\nfo r  a n  o p e n  f r a c t u r e .  I t  i s  a l s o  n o t  r e c o m m e n d e d  b y  N G 3 9  s o  i s  i n c o r r e c t .\n\"\nAn swe r E (p arace t amol) is  a n on -op ioid an alg e s ic an d in dicate d for mild to mode rate\npain relief. It is also not recommended by NG39 so is incor rec t.\n\"\nExam framework: CNS, opiates\nTh e  cor re c t an swe r is :\nMor phin e\nA 30-ye ar-old woman  h as  come  to t h e  commu n it y p h ar macy wan t in g  to bu y orlist at\n60mg  cap s u le s  to h e lp  w it h  h e r we ig h t  loss . S h e  is  n ot  on  any ot h e r me d icat ion  an d\n#\nQu iz n avig a t ion\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n\"\nGL  C am p u s\nHome\nDas h b oard\nMy cou rses\n$\n%\n&\n\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n16\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n17\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n18\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n19\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n20\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n21\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n22\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n23\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n24\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n25\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n26\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n27\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n28\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n29\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n30\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n31\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n32\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\n60mg  cap s u le s  to h e lp  w it h  h e r we ig h t  loss . S h e  is  n ot  on  any ot h e r me d icat ion  an d\nhas NKDA. She has tried to lose weight already by exercising more at the gym and by\nmaking changes to her diet, but has had no luck. She has read online that orlistat\nmight help her lose some weight. During the consultation, you advise the patient to\ntake a multivitamin two hours after taking orlistat in the evening as orlistat can reduce\nthe absor ption of fat-soluble vitamins.\n\"\nWhichofthefollowingvitaminsisNOTclassedasfat-soluble\n!", "options": {"A": "Vitamin  A", "B": "Vitamin  C\n!", "C": "Vitamin  D", "D": "Vitamin  E", "E": "V"}, "answer": "A"}, {"question": "2 5 m L\nD.\n0. 5 m L\nE.\n5mL\nYo u r  a n s w e r  i s  i n c o r r e c t .\nTh e  oral s olu tion  is  10mg /mL an d th e  dos e  p re s cribe d is  250 microg rams , or 0.25mg .\n1mL of t h is  i.e . 10mg , is  dilu te d to 20mL w it h  wate r i.e . we  h ave  10mg  in  20mL\n10mg  in  20mL = 1mg /2mL = 0.25mg /0.5mL\nExam Framework: c alc ulations , paed s\nTh e  cor re c t an swe r is :\n0. 5 m L\nMr M, a 72-year-old patien t weighin g 62kg, is bein g star ted on  IV co-amoxiclav\n1000mg /200mg  for commu n it y-acq u ire d p n e u mon ia. His  cre at in in e  cle aran ce  h as\nbeen calculated as 27.7mL/min.\n\"\nUsing the resource provided, which of the following doses and dosing\nfreq uenc ies  would be most appropriate to rec ommend for Mr M\n!", "options": {"A": "1000mg /200mg  eve r y 8 h ou rs\n\"", "B": "In i t i al d os e  of 1000m g /200m g  an d  t h e n  5 00m g /100m g  g i ve n  eve r y 24 h ou rs", "C": "In i t i al d os e  of 1000m g /200m g  an d  t h e n  15 m g /5 m g  p e r kg  g i ve n  eve r y 24\nhours", "D": "In i t i al d os e  of 1000m g /200m g  an d  t h e n  5 00m g /100m g  g i ve n  t h re e  t i m e s  a\nday", "E": "I"}, "answer": "A"}, {"question": "2 %\nC.\n4.0 %\nD.\n6.7 %\n!\nE.\n9. 8 %\nYo u r  a n s w e r  i s  c o r r e c t .\nAs  p e r  re s o u rc e  p a c k ,  t h e  p a t i e n t  h a s  a  C H A 2 D S 2 VA S c  s c o re  o f  5  ( p o i n t s  fo r  fe m a l e\nsex (1), age(2), diabetes (1) and hyper tension (1)) which is equivalent to a 6.7%\nan n u al ris k\nExam Framework: res ourc e, CVS\nTh e  cor re c t an swe r is :\n6.7 %\nA GP con tac ts  a commu n ity p h ar macist for g u idan ce  on  malaria p rop hylax is . Th e  GP\nwo u l d  l i ke  t o  p r e s c r i b e  M a l a r i vo n  s y r u p  fo r  a  2 - ye a r- o l d  g i r l  we i g h i n g  9.2 kg .  T h e  g i r l  i s\ngoing abroad for 2 weeks in a malaria endemic area and has no immunity. The girls\nfa t h e r  h a s  ex p l a i n e d  t h a t  h e  wo u l d  l i ke  t h e  m i n i m u m  vo l u m e  t o  b e  p re s c r i b e d ,  a s  h i s\ndaughter does not like taking medicines.\nUsing the resource provided, what is the total volume of Malarivon syrup that\nshouldbeprescribedforthefullcourse\n!", "options": {"A": "30mL", "B": "40m L", "C": "50mL", "D": "60mL\n!", "E": "7"}, "answer": "A"}, {"question": "5 m L  x  8  d o s e s  =  6 0 m L\n\"\nSee:\nhttps://www.medicines.org.uk/emc/produc t/2306/smpc#:~:text=Sucrose%2C%20Methyl%2C%20Ethyl%2C%20Propyl,E124))%20and%20Purified%20Water.&text=Protec t%20from%20light.,containing%2075ml%20of%20Malarivon%20Syrup\nExam framework: paed s , res ourc e, c alc\nTh e  cor re c t an swe r is :\n60mL\nA 6-ye ar-old ch ild h as  be e n  p re s cribe d clotrimazole  1%  cre am for a fu n g al s kin\nin fec tion . The phar macist is han din g ou t the cream to the child\u00d5s paren ts with\nap p rop riate  cou n s e llin g .\nWhich of the following is the most appropriate advice for the phar macist to\ngi ve\n!", "options": {"A": "Ap p ly daily u n til le s ion s  h ave  h e ale d", "B": "Ap p ly daily con tin u in g  for 10 days  afte r le s ion s  h ave  h e ale d", "C": "Ap p ly tw ice  daily u n til le s ion s  h ave  h e ale d", "D": "Ap p ly tw ice  daily an d con tin u e  for at le ast 4 we e ks", "E": "A"}, "answer": "A"}, {"question": "2 5 m g  d e x  =  3 5 m g  p r e d\nWe  c a n  n o w  r u l e  o u t  o p t i o n s  B - E  a n d  s e e  t h a t  o p t i o n  A  m u s t  b e  t h e\nan swe r.\nExam framework: c alc s , c hemo, res ourc e\nTh e  cor re c t an swe r is :\n33mg\nIn  O c tob e r 2023, a d ru g  s afe t y u p d ate  was  iss u e d  re g ard in g  t h e  in t rod u c t ion  of n e w\nsafety measures concer ning the use of Roaccutane (isotretinoin).\nWhichofthefollowingistheleastappropriatestatementregardingtheuseof\nisotretinoin\n!", "options": {"A": "All p atie n ts  mu st be  cou n s e lle d abou t th e  be n e fits  an d ris ks  of tre atme n t\nbefore isotretinoin is prescribed, including possible mental health and sexual\nfu n c tion  s ide  e ffe c ts", "B": "Is ot re t i n oi n  i s  te ratog e n i c, all p at i e n ts  of ch i ld b e ari n g  p ote n t i al m u st  b e\nentered into the Pregnancy Prevention Programme", "C": "Is ot re t i n oi n  s h ou ld  on ly b e  p re s cri b e d  for s eve re  acn e  t h at  i s  re s i st an t  to\nad e q u ate  cou rs e s  of st an d ard  t h e rapy", "D": "Prescribers should assess patients\u00d5 mental health before prescribing\nisotretin oin\n\"\n\"", "E": "T"}, "answer": "A"}, {"question": "5 m L  B D\nD.\n10mL O D\nE.\n20m L P R N\nYo u r  a n s w e r  i s  c o r r e c t .\n2.5 m L  T D S  ( =  t o  5 0 m g  T D S )\nFrom BNF: 50\n$\nmg 3-4 times a day, maximum daily dose to be given in 3\u00d04 divided\ndoses; maximum 30\n$\nmg/kg per day\nSee: \nhttps://bnfc.nice.org.uk/drug/ibuprofen.html#indicationsAndDoses\nExam Framework: OTC, paed iatric s\nTh e  cor re c t an swe r is :\n2.5 m L  T D S\nA woman  is  admit te d to t h e  ward w it h  u n con t rolle d ch ron ic back p ain . Th e  p ain  te am\n\nQu esti on  \n65\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n66\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n67\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n68\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n69\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n70\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n71\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n72\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n73\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n74\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n75\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n76\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n77\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n78\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n79\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n80\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n81\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n82\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nA woman  is  admit te d to t h e  ward w it h  u n con t rolle d ch ron ic back p ain . Th e  p ain  te am\nhas advised to increase her mor phine MR tablets to 60mg BD. The phar macist is\ncalcu lat i n g  an  ap p rop ri ate  d os e  of m or p h i n e  li q u i d  10m g /5 m L for b re akt h rou g h  p ai n .\nWhichofthefollowingwouldbetheminimumdoseofmor phineliquid\n10mg/ 5mL for b reakthrou gh pain  for the woman\n!", "options": {"A": "8m g  re p e ate d  eve r y 2\u00d0 4 h ou rs  as  re q u ire d", "B": "10mL re p e ate d eve r y 2\u00d0 4 h ou rs  as  re q u ire d\n\"", "C": "12mg  re p e ate d eve r y 2\u00d0 4 h ou rs  as  re q u ire d", "D": "20m L re p e ate d  eve r y 2\u00d0 4 h ou rs  as  re q u i re d", "E": "4"}, "answer": "A"}, {"question": "2 .\nWhich of the following medications that the patient has star ted is most likely to\nhave caused this rise in potassium\n!", "options": {"A": "As p i r i n", "B": "At o r v a s t a t i n", "C": "Bisoprolol", "D": "Ramipril\n!", "E": "T"}, "answer": "A"}, {"question": "S h e  w a s  a d v i s e d  t o  c o n t i n u e  t a k i n g  h e r  n o r m a l  d o s e  o f  3 m g  d a i l y.  To d ay  i n  c l i n i c ,\nher INR today was 6.4. The woman explains that she has not missed any doses, has\nhad no changes to her diet, and does not drink any alcohol. She has however recently\nst a r te d  s o m e  n e w  m e d i c a t i o n s .\nWhichofthefollowingmedicationsismostlikelytohavecausedtheincreased\nINR\n!\n\nQu esti on  \n83\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n84\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n85\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n86\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n87\nIn cor re c t\nMark 0.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n88\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n89\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n90\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n91\nNot answered\nMarked out of\n1.0 0\nFlag\nquestion\nQu esti on  \n92\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n93\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n94\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion\nQu esti on  \n95\nCor re c t\nMark 1.00 out\nof 1.00\nRe m ove  f l a g\nQu esti on  \n96\nCor re c t\nMark 1.00 out\nof 1.00\nRe m ove  f l a g\nQu esti on  \n97\nCor re c t\nMark 1.00 out\nof 1.00\nRe m ove  f l a g\nQu esti on  \n98\nCor re c t\nMark 1.00 out\nof 1.00\nFlag\nquestion", "options": {"A": "Bisoprolol", "B": "Carbamaze p in e", "C": "Fluconazole\n!", "D": "Lith iu m", "E": "S"}, "answer": "A"}, {"question": "2 5 g  e v e r y  1 2  h o u r s  a d m i n i s t e r e d  o v e r  1 5 0  m i n u t e s\n\"\nE.\n2g  a d m i n i s te re d  ove r  24 0  m i n u te s\nF.\n500mg ever y 24 hours, administered over 60 minutes\nG.\n75 0 m g  eve r y  1 2  h o u rs ,  a d m i n i s t e re d  ove r  9 0  m i n u t e s\n!\nH.\n75 0 m g  eve r y  24  h o u rs ,  a d m i n i s t e re d  ove r  1 2 0  m i n u t e s\nYo u r  a n s w e r  i s  c o r r e c t .\nSee maintenance dose and administration tables:\nhttps://www.yorkhospitals.nhs.uk/seecmsfile/\n#\nid=975\nExam Framework: res ourc e, infec tion, high ris k d rugs  (nar row therapeutic\nindex, antibiotics, parenteral drugs)\nTh e  cor re c t an swe r is :\n75 0 m g  eve r y  1 2  h o u rs ,  a d m i n i s t e re d  ove r  9 0  m i n u t e s\nTheme: Vancomycin\nFor each of the patients described, selec t the single most appropriate vancomycin\ndose from the list. You will find more infor mation in the resource provided. Each\nop tion  may be  u s e d on ce , more  th an  on ce  or n ot at all.\nApatientwithosteomyelitishasbeenprescribedvancomycin,withaplanfor\ntrou gh levels , pre- d os e, to b e taken  to en s u re s afe d os i n g. T he pati en t has  a\nCrCl of 71mL/min and an ac tual body weight of 95kg. A phar macist is calculating\nan  appropri ate load i n g d os e.", "options": {"A": "In cre as e  t h e  d os e  by 5 0%", "B": "Main tain  the presen t dosage regimen", "C": "Stop, repeat level until <20 mg/L and seek advice regarding dose reduc tion", "D": "1. 2 5 g  e v e r y  1 2  h o u r s  a d m i n i s t e r e d  o v e r  1 5 0  m i n u t e s\n\"", "E": "2"}, "answer": "A"}, {"question": "2 5 g  e v e r y  1 2  h o u r s  a d m i n i s t e r e d  o v e r  1 5 0  m i n u t e s\n\"\nE.\n2g  a d m i n i s te re d  ove r  24 0  m i n u te s\nF.\n500mg ever y 24 hours, administered over 60 minutes\nG.\n75 0 m g  eve r y  1 2  h o u rs ,  a d m i n i s t e re d  ove r  9 0  m i n u t e s\nH.\n75 0 m g  eve r y  24  h o u rs ,  a d m i n i s t e re d  ove r  1 2 0  m i n u t e s\nYo u r  a n s w e r  i s  c o r r e c t .\nSee vanc concentration sec tion on page 4:\nhttps://www.yorkhospitals.nhs.uk/seecmsfile/\n#\nid=975\nExam Framework: res ourc e, infec tion, high ris k d rugs  (nar row therapeutic\nindex, antibiotics, parenteral drugs)\nTh e  cor re c t an swe r is :\nMain tain  the presen t dosage regimen\nTheme: Antidiabetic drugs\nFor each of the patients described, selec t the most appropriate drug from the list.\nEach  op t ion  may b e  u s e d  on ce , more  t h an  on ce , or n ot  at  all.\nMr  H  i s  h as  ty pe 2  d i ab etes  an d  a h i stor y  of h ear t fai lu re. H e at ten d s  a\nphar mac ist led endoc rinology c linic  for his  6-month review and for the\ncontinuedmanagementofhisdiabetes.Thephar macistidentifiesan\nan ti d i ab eti c  d ru g w h i c h  wou ld  b e least s u i tab le for\n\"\n Mr H , gi ven  h i s  m ed i c al\nhistor y.", "options": {"A": "Dap ag li floz i n", "B": "Exe n at id e", "C": "Gli b e n clam i d e", "D": "Gli claz i d e", "E": "L"}, "answer": "A"}];
+    let currentIndex = 0;
+    let correctCount = 0;
+    let totalAnswered = 0;
+    let answeredIndices = new Set();
+
+    function updateScore() {
+      document.getElementById('score').textContent = `Score: ${correctCount} / ${totalAnswered}`;
+    }
+
+    function showQuestion() {
+      const q = questions[currentIndex];
+      document.getElementById('question').textContent = q.question;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      for (const [key, value] of Object.entries(q.options)) {
+        const btn = document.createElement('button');
+        btn.textContent = `${key}. ${value}`;
+        btn.onclick = () => {
+          if (!answeredIndices.has(currentIndex)) {
+            totalAnswered++;
+            if (key === q.answer) {
+              correctCount++;
+              document.getElementById('feedback').textContent = '✅ Correct!';
+            } else {
+              document.getElementById('feedback').textContent = `❌ Incorrect. Correct answer is ${q.answer}`;
+            }
+            answeredIndices.add(currentIndex);
+            updateScore();
+          }
+        };
+        optionsDiv.appendChild(btn);
+      }
+      document.getElementById('feedback').textContent = '';
+      updateScore();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        showQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showQuestion();
+      }
+    }
+
+    function shuffleQuestions() {
+      for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+      }
+      currentIndex = 0;
+      correctCount = 0;
+      totalAnswered = 0;
+      answeredIndices.clear();
+      showQuestion();
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
