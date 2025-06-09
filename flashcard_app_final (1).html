@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcard App (Final Version)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .options button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .nav {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 id="question">Loading...</h2>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="nav">
+      <button onclick="prevQuestion()">Previous</button>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [];
+
+    let currentIndex = 0;
+
+    function showQuestion() {
+      const q = questions[currentIndex];
+      document.getElementById('question').textContent = q.question;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      for (const [key, value] of Object.entries(q.options)) {
+        const btn = document.createElement('button');
+        btn.textContent = `${key}. ${value}`;
+        btn.onclick = () => {
+          const feedback = key === q.answer ? '✅ Correct!' : `❌ Incorrect. Correct answer is ${q.answer}`;
+          document.getElementById('feedback').textContent = feedback;
+        };
+        optionsDiv.appendChild(btn);
+      }
+      document.getElementById('feedback').textContent = '';
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        showQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showQuestion();
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
