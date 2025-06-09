@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flashcard App (Final Version)</title>
+  <title>Flashcard App</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,23 +32,35 @@
     .nav {
       margin-top: 20px;
     }
+    .score {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="card">
+    <div class="score" id="score">Score: 0 / 0</div>
     <h2 id="question">Loading...</h2>
     <div class="options" id="options"></div>
     <div class="feedback" id="feedback"></div>
     <div class="nav">
       <button onclick="prevQuestion()">Previous</button>
       <button onclick="nextQuestion()">Next</button>
+      <button onclick="shuffleQuestions()">🔀 Shuffle</button>
     </div>
   </div>
 
   <script>
-    const questions = [];
-
+    let questions = [];
     let currentIndex = 0;
+    let correctCount = 0;
+    let totalAnswered = 0;
+    let answeredIndices = new Set();
+
+    function updateScore() {
+      document.getElementById('score').textContent = `Score: ${correctCount} / ${totalAnswered}`;
+    }
 
     function showQuestion() {
       const q = questions[currentIndex];
@@ -59,12 +71,22 @@
         const btn = document.createElement('button');
         btn.textContent = `${key}. ${value}`;
         btn.onclick = () => {
-          const feedback = key === q.answer ? '✅ Correct!' : `❌ Incorrect. Correct answer is ${q.answer}`;
-          document.getElementById('feedback').textContent = feedback;
+          if (!answeredIndices.has(currentIndex)) {
+            totalAnswered++;
+            if (key === q.answer) {
+              correctCount++;
+              document.getElementById('feedback').textContent = '✅ Correct!';
+            } else {
+              document.getElementById('feedback').textContent = `❌ Incorrect. Correct answer is ${q.answer}`;
+            }
+            answeredIndices.add(currentIndex);
+            updateScore();
+          }
         };
         optionsDiv.appendChild(btn);
       }
       document.getElementById('feedback').textContent = '';
+      updateScore();
     }
 
     function nextQuestion() {
@@ -79,6 +101,18 @@
         currentIndex--;
         showQuestion();
       }
+    }
+
+    function shuffleQuestions() {
+      for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+      }
+      currentIndex = 0;
+      correctCount = 0;
+      totalAnswered = 0;
+      answeredIndices.clear();
+      showQuestion();
     }
 
     showQuestion();
